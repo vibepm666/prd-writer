@@ -1,0 +1,160 @@
+# prd-writer
+
+**产品需求文档（PRD）撰写与迭代技能** — 把「先对齐方向、再写落地细节」的产品经理工作流，落成 Agent 可逐步执行的分阶段交付。
+
+面向从零撰写、评审改进或增量更新 PRD 等场景，本技能按三视角（用户 / 商业 / 技术）完成诊断，分 **概念版** 与 **落地版** 写入工作区 `docs/`，并系统补全交互状态、数据规范、文案与关键页线框等细节，使文档可直接用于研发实现或 AI 生成代码。
+
+> 本技能不是头脑风暴工具：适合「大致知道要做什么」，不适合「完全不知道做什么产品」。
+
+## 安装
+
+本仓库即技能包根目录（顶层含 `SKILL.md`）。克隆或复制到 Agent 的技能目录即可使用。
+
+### 个人技能（推荐，所有项目可用）
+
+**macOS / Linux：**
+
+```bash
+# 将 <skills-dir> 替换为你所用 Agent 的个人技能目录
+git clone https://github.com/vibepm666/prd-writer.git <skills-dir>/prd-writer
+```
+
+**Windows（PowerShell）：**
+
+```powershell
+git clone https://github.com/vibepm666/prd-writer.git "<skills-dir>\prd-writer"
+```
+
+### 项目技能（仅当前仓库）
+
+```bash
+mkdir -p <project-skills-dir>
+git clone https://github.com/vibepm666/prd-writer.git <project-skills-dir>/prd-writer
+```
+
+### 手动安装
+
+将本仓库全部文件复制到以下任一目录：
+
+| 类型 | 常见路径 |
+| --- | --- |
+| 个人技能 | `~/.agents/skills/prd-writer/`、`~/skills/prd-writer/` 等 |
+| 项目技能 | `.agents/skills/prd-writer/`、`skills/prd-writer/` 等 |
+
+> **说明**：具体目录以你所用 Agent 的文档为准；VibePM 用户推荐 `.agents/skills/prd-writer/`。
+
+安装完成后，在 Agent 对话中读取或引用 `SKILL.md` 即可使用本技能。
+
+## 使用方式
+
+**推荐用法**：让 Agent 读取 `SKILL.md`，并按模式加载 `references/` 下对应模板后再写文档。
+
+```
+请读取 prd-writer 技能的 SKILL.md，并按其中流程帮我写一份 PRD。
+```
+
+**触发关键词**（任一命中即可）：需求文档、PRD、产品需求、功能文档、写需求、整理需求、补充需求、审查需求、改进需求文档、需求评审、评估 PRD、从零写 PRD、我想做一个产品/App/工具、AI 写的需求有没有问题
+
+### 使用示例
+
+> 我想做一个帮自由职业者记录工作时间的工具
+
+> 帮我检查一下这份需求文档有没有问题
+
+> 帮我在现有 PRD 里加一个通知功能的需求
+
+## 适用场景
+
+| 你是谁 | 典型诉求 |
+| --- | --- |
+| 产品经理 / 产品负责人 | 快速产出或迭代标准 PRD，统一评审口径，减少与研发、设计对齐时的遗漏与歧义 |
+| 独立开发者 / Vibe coding 用户 | 有功能想法，需要一份能直接驱动实现的 PRD |
+| 创业者 / 业务负责人 | 无 PM 背景，要把模糊需求结构化、对齐 MVP 范围 |
+| 已有需求稿的维护者 | 评审文档质量、补全缺口，或增量添加/修改某模块 |
+
+**不适合**：尚无产品方向、希望 AI 代为选题或从零构思商业模式时 — 请先想清楚「为谁解决什么问题」，再使用本技能。
+
+## 核心能力
+
+### 三种工作模式
+
+| 模式 | 触发条件 |
+| --- | --- |
+| **模式 A：从零生成** | 有想法，还没有文档 |
+| **模式 B：评估改进** | 已有文档，想检查或优化 |
+| **模式 C：增量更新** | 已有文档，想追加新需求或细化某模块 |
+
+### 分两阶段交付
+
+1. **概念版**（方向对齐）→ 用户明确确认后再展开细节
+2. **落地版**（完整细节）→ 可直接交给 AI 或开发者实现
+
+### 自动补全的非 PM 盲区
+
+- 交互细节（操作反馈、空状态、失败引导）
+- 状态机（每个 UI 元素的全部状态）
+- 数据规范（字段类型、长度、校验规则）
+- 双受众文案（开发侧 vs 终端用户侧）
+- 关键页面 ASCII 线框图
+- 产品类型相关的非功能性需求（B2B / ToC / 营销站等）
+
+## 工作流程
+
+```text
+用户消息
+  → 先读 docs/ 与用户 @ 的已有稿（read-first.md）
+  → 第零步判断是否适合（无稿时；有稿可豁免）
+  → 识别模式 A / B / C
+  → 三视角诊断（用户 / 商业 / 技术）
+  → 输出概念版 → 用户明确确认
+  → 输出落地版（MVP 闸门：默认只展开 🔴 核心功能 §5）
+  → 写后自检（self-check.md）
+```
+
+**模式 A** 完整路径：
+
+```text
+三视角诊断 → 概念版（-概念版.md）→ 用户确认 → 落地版（PRD.md）
+```
+
+**模式 B**：按 checklist 评审 → 输出 `PRD-评审.md` → 可选补全
+
+**模式 C**：融合更新，用 `【本次更新】` 标注改动
+
+## 产出路径
+
+PRD 写入**当前工作区**的 `docs/` 目录（不存在时自动创建），不会写入技能包目录本身。
+
+| 文档 | 路径 |
+| --- | --- |
+| 概念版 | `docs/YYYY-MM-DD-<主题>-概念版.md` |
+| 落地版 | `docs/YYYY-MM-DD-<主题>PRD.md`（文首链回概念版） |
+| 评审报告 | `docs/YYYY-MM-DD-<主题>PRD-评审.md`（模式 B） |
+
+## 文件结构
+
+```text
+.
+├── SKILL.md                      # 主入口：门禁、模式、执行顺序
+├── references/
+│   ├── read-first.md             # 先读再写、模式判断、第零步豁免
+│   ├── diagnosis-guide.md        # 三视角诊断与产品形态
+│   ├── concept-template.md       # 概念版模板
+│   ├── prd-template.md           # 落地 PRD 模板（含 MVP 闸门）
+│   ├── diagram-handoff.md        # Mermaid 与复杂图表分工说明
+│   ├── product-type-appendix.md  # 产品类型 §7 补充
+│   ├── review-checklist.md       # 模式 B 检查项
+│   ├── review-output-template.md # 模式 B 评审报告模板
+│   ├── example-prd.md            # 格式与粒度示例
+│   └── self-check.md             # 写后自检
+├── README.md
+├── LICENSE
+└── .gitignore
+```
+
+**权威说明**：流程与门禁以 `SKILL.md` 为准；模板与检查项以 `references/` 为准。写文档前按模式读取对应 reference 文件。
+
+
+## 许可证
+
+MIT License — 详见 [LICENSE](./LICENSE)。
