@@ -2,50 +2,36 @@
 
 **产品需求文档（PRD）撰写与迭代技能** — 把「先对齐方向、再写落地细节」的产品经理工作流，落成 Agent 可逐步执行的分阶段交付。
 
-官网：[VibePM](https://www.vibepm.net)
-
 帮助用户从零写出高质量 PRD，或评估/改进/增量更新已有需求文档。本技能按三视角（用户 / 商业 / 技术）完成诊断，分 **概念版** 与 **落地版** 写入工作区 `docs/`，并系统补全交互状态、数据规范、文案与关键页线框等细节，使文档可直接用于研发实现或 AI 生成代码。
 
 > 本技能不是头脑风暴工具：适合「大致知道要做什么」，不适合「完全不知道做什么产品」。
+
+官网：[www.VibePM.net](https://www.vibepm.net)
 
 ## 安装
 
 本仓库即技能包根目录（顶层含 `SKILL.md`）。克隆或复制到 Agent 的技能目录即可使用。
 
-### 个人技能（推荐，所有项目可用）
-
-**macOS / Linux：**
-
-```bash
-# 将 <skills-dir> 替换为你所用 Agent 的个人技能目录
-git clone https://github.com/vibepm666/prd-writer.git <skills-dir>/prd-writer
+### 自动安装：
+把链接发给智能体，让它帮你安装。在 Cursor 等 Agent 对话里复制下面这句即可：
+```text
+请帮我安装这个技能：https://github.com/vibepm666/prd-writer
+克隆到个人技能目录（或项目技能目录）。
 ```
 
-**Windows（PowerShell）：**
+### 手动安装：
 
-```powershell
-git clone https://github.com/vibepm666/prd-writer.git "<skills-dir>\prd-writer"
-```
+下载项目压缩包，解压后将整个 `prd-writer` 文件夹放入技能目录即可。
 
-### 项目技能（仅当前仓库）
-
-```bash
-mkdir -p <project-skills-dir>
-git clone https://github.com/vibepm666/prd-writer.git <project-skills-dir>/prd-writer
-```
-
-### 手动安装
-
-将本仓库全部文件复制到以下任一目录：
-
-| 类型 | 常见路径 |
+### 目录说明：
+技能目录分两种：**个人技能**（所有项目可用）与 **项目技能**（仅当前项目可用）。以 Cursor 为例：
+| 类型 | 路径 |
 | --- | --- |
-| 个人技能 | `~/.agents/skills/prd-writer/`、`~/skills/prd-writer/` 等 |
-| 项目技能 | `.agents/skills/prd-writer/`、`skills/prd-writer/` 等 |
+| 个人技能 | `~/.cursor/skills/prd-writer/` ~/是Cursor数据存储目录 |
+| 项目技能 | `.cursor/skills/prd-writer/` 或 `.agents/skills/prd-writer/` |
 
 > **说明**：具体目录以你所用 Agent 的文档为准；VibePM 用户推荐 `.agents/skills/prd-writer/`。
 
-安装完成后，在 Agent 对话中读取或引用 `SKILL.md` 即可使用本技能。
 
 ## 使用方式
 
