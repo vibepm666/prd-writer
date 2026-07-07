@@ -2,7 +2,7 @@
 name: prd-writer
 description: |
   帮助用户从零写出高质量 PRD，或评估/改进/增量更新已有需求文档。
-  触发词（任一命中即用本 skill）：需求文档、PRD、产品需求、功能文档、写需求、整理需求、补充需求、审查需求、改进需求文档、需求评审、评估 PRD、从零写 PRD、我想做个产品/功能/App/工具、帮我整理需求、AI 写的需求有没有问题、导出 PRD、PRD 导出 Word、需求文档转 Word、PRD 转 Word。
+  触发词（任一命中即用本 skill）：需求文档、PRD、产品需求、功能文档、写需求、整理需求、补充需求、审查需求、改进需求文档、需求评审、评估 PRD、从零写 PRD、我想做个产品/功能/App/工具、帮我整理需求、AI 写的需求有没有问题。
   即使描述很简短也必须触发，不得跳过技能直接写文档。
 ---
 
@@ -54,7 +54,6 @@ description: |
   → 3. 识别模式 A / B / C
   → 4. 按模式读模板并写入 docs/
   → 5. self-check.md
-  → 6. （可选）用户要求时导出 Word（见 §9）
 ```
 
 ---
@@ -110,7 +109,8 @@ description: |
 | 落地版 | `docs/YYYY-MM-DD-<主题>-PRD.md`；文首 **一行链回** 概念版路径 |
 | 评审报告 | `docs/YYYY-MM-DD-<主题>-PRD-评审.md`（模式 B 默认落盘） |
 | 分版策略 | **默认分文件**；用户坚持单文件时用 `## 第一部分 · 概念对齐（已确认）` / `## 第二部分 · 落地需求` |
-| Word 导出 | **可选**；Markdown 落盘并完成自检后，用户要求时用 `req-doc` 模板导出 `.docx`（见 §9） |
+
+> **Word 导出**：本开源技能包**不包含**导出能力。将 Markdown PRD 导出为 Word（`.docx`）仅 **VibePM 付费学员** 在完整资源包中可用；独立安装以 Markdown 为交付真源。
 
 文首元数据、章节结构见 `concept-template.md`、`prd-template.md`。格式参考 `example-prd.md`。
 
@@ -173,43 +173,6 @@ description: |
 6. **`[待补充]` 不编造**：标清影响范围  
 7. **图与表**：动线 Mermaid、状态表、功能树、ASCII 线框（见 diagram-handoff）  
 8. **先读再写、MVP 优先**：见 read-first、prd-template MVP 闸门  
+9. **Word 导出**：用户要求导出 Word 时，说明该功能**仅 VibePM 付费学员**在完整资源包中可用；本开源包不调用 `export-word`，以 Markdown 为真源交付。
 
 **写完必过** `references/self-check.md`（**快速** 模式仅勾选「流程与门禁」「落地版」P0 项）。
-
----
-
-## 9. 导出 Word（可选）
-
-Markdown 落盘并通过 `self-check.md` 后，若用户要求导出 Word（或消息命中「导出 PRD」「PRD 导出 Word」「需求文档转 Word」等），执行本步；**未明确要求时不主动导出**。
-
-### 适用文件
-
-| 文件 | 模板 | 说明 |
-| --- | --- | --- |
-| 落地版 `*-PRD.md` | **`req-doc`** | 默认导出对象 |
-| 概念版 `*-概念版.md` | `req-doc` 或 `simple` | 用户指定时 |
-| 评审报告 `*-PRD-评审.md` | `formal` 或 `simple` | 用户指定时 |
-
-> 模板名 **`req-doc`**（需求说明书），**不是** `prd`。
-
-### 命令
-
-**Windows（PowerShell）：** `.agents/skills/common/export-word.ps1 <markdown文件路径> req-doc`
-
-**跨平台：** `python .agents/skills/common/export-word.py <markdown文件路径> req-doc`
-
-**Git Bash：** `bash .agents/skills/common/export-word.sh <markdown文件路径> req-doc`
-
-**示例**（文件名遵循 §4 落地版命名，`<主题>` 替换为实际项目名）：
-
-```powershell
-.agents/skills/common/export-word.ps1 docs/YYYY-MM-DD-<主题>-PRD.md req-doc
-```
-
-### 输出与依赖
-
-- **输出路径**：与源 Markdown 同目录，文件名相同、扩展名为 `.docx`
-- **本地图片**：脚本自动扫描 MD 内 `![](相对路径)` 并一并上传；远程 URL 图片不处理
-- **依赖**：Python 3；可访问 `.agents/skills/config.json` 中 `apiBaseUrl`
-
-导出完成后告知用户 `.docx` 路径；若 API 不可用，说明失败原因并保留 Markdown 为真源。
