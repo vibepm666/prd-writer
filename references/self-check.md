@@ -17,7 +17,7 @@
 
 ## 落地版
 
-- [ ] 路径：`docs/YYYY-MM-DD-<主题>PRD.md`
+- [ ] 路径：`docs/YYYY-MM-DD-<主题>-PRD.md`
 - [ ] 文首链回概念版；写明 MVP 范围
 - [ ] §3 动线含异常分支；复杂图已按 `diagram-handoff.md` 处理
 - [ ] §4.1 含 1 个核心页 ASCII 线框
@@ -28,7 +28,7 @@
 ## 模式 B
 
 - [ ] 已按 `review-checklist.md` 逐项评分
-- [ ] 评审报告写入 `docs/YYYY-MM-DD-<主题>PRD-评审.md`（除非用户不要落盘）
+- [ ] 评审报告写入 `docs/YYYY-MM-DD-<主题>-PRD-评审.md`（除非用户不要落盘）
 - [ ] 已问用户：直接补全 vs 自行修改
 
 ## 模式 C

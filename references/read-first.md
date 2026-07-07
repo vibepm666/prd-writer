@@ -8,7 +8,7 @@
 
 | 类型 | 常见路径 |
 | --- | --- |
-| 已有 PRD / 概念稿 | `docs/*PRD*.md`、`*概念版*.md` |
+| 已有 PRD / 概念稿 | `docs/*-PRD.md`、`*-PRD-评审.md`、`*概念版*.md` |
 | 需求与规划 | `docs/requirements.md`、`docs/roadmap.md` |
 | 调研与画像 | `docs/*market*`、`*research*`、`*persona*`、`*用户*` |
 | 用户 @ 的路径 | 用户消息中明确给出的任意 `.md` / `.txt` |
